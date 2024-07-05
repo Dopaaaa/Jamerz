@@ -7,7 +7,9 @@ extends CharacterBody2D
 @export var attack_cooldown = 0.5
 @export var can_attack = true
 @export var health = 100
-@onready var sprite_2d = $Sprite2D
+@onready var animated_sprite_2d = $AnimatedSprite2D
+var is_walking := false
+
 
 # Functions
 func _ready():
@@ -16,13 +18,20 @@ func _ready():
 func _physics_process(delta):
 	# Movement
 	if Input.is_action_pressed("move_left"):
+		is_walking = true
 		velocity.x = -speed
-		sprite_2d.flip_h = true
+		animated_sprite_2d.play("walk")
+		animated_sprite_2d.flip_h = false
 	elif Input.is_action_pressed("move_right"):
+		is_walking = true
 		velocity.x = speed
-		sprite_2d.flip_h = false
+		animated_sprite_2d.play("walk")
+		animated_sprite_2d.flip_h = true
 	else:
+		is_walking = false
 		velocity.x = 0
+		animated_sprite_2d.play("idle")
+	
 	
 	# Gravity
 	if not is_on_floor():
@@ -43,3 +52,10 @@ func take_damage(amount):
 	health -= amount
 	if health <= 0:
 		queue_free()
+
+
+func _on_animated_sprite_2d_animation_finished():
+	#if animated_sprite_2d.animation == "walk":
+		#animated_sprite_2d.play("transition_TO_idle")
+	if animated_sprite_2d.animation == "transition_TO_idle":
+		animated_sprite_2d.play("idle")

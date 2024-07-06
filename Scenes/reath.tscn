@@ -1,0 +1,155 @@
+[gd_scene load_steps=20 format=3 uid="uid://oy1j32r41tmb"]
+
+[ext_resource type="Script" path="res://Reath.gd" id="1_f7fod"]
+[ext_resource type="Texture2D" uid="uid://closqpna74v7h" path="res://sprites/DS DSi - Windy X Windam - Reath.png" id="2_pcn8e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eto8"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(0, 0, 63, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bngwf"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(63, 0, 63, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e27so"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(126, 0, 63, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7mat"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(0, 586, 68, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kjvu"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(68, 586, 68, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0xdw"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(136, 586, 109, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8ksj"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(245, 586, 109, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b43xw"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(353, 586, 86, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehawa"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(437, 586, 67, 87)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o00a5"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(0, 85, 66, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inxw1"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(66, 85, 66, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57nwq"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(132, 85, 66, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b6iq"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(0, 500, 55, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y43af"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(54, 494, 77, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it32f"]
+atlas = ExtResource("2_pcn8e")
+region = Rect2(131, 494, 77, 92)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7icgt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eto8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bngwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e27so")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7mat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kjvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0xdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8ksj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b43xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehawa")
+}],
+"loop": true,
+"name": &"strong_attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o00a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inxw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57nwq")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b6iq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y43af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it32f")
+}],
+"loop": true,
+"name": &"weak_attack",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1basv"]
+size = Vector2(34, 79)
+
+[node name="Reath" type="CharacterBody2D"]
+position = Vector2(332, 59)
+scale = Vector2(3, 3)
+script = ExtResource("1_f7fod")
+gravity = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(100, 100)
+sprite_frames = SubResource("SpriteFrames_7icgt")
+animation = &"weak_attack"
+frame_progress = 0.974377
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(100, 100)
+shape = SubResource("RectangleShape2D_1basv")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
